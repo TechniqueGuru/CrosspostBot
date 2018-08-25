@@ -32,13 +32,12 @@ privatesub = reddit.subreddit(privatesub)
 
 while True:
     for submission in privatesub.new(limit=None):
-        print(submission.id)
         if submission.id == postidcheck(submission.id):  # Check if the submission has already been crossposted.
             continue
         for sub in sublist:  # Go through each each subreddit in the sublist.
             try:
-                submission.crosspost(sub)  # Crosspost then submission in the current subreddit.
-                open('postid.txt', 'a+').write(f'{submission.id}\n')  # Add submission's id to the list.
+                submission.crosspost(sub)  # Crosspost the submission in the current subreddit.
+                open('postid.txt', 'a+').write(f'{submission.id}\n')  # Add the submission's id to the list.
             except Exception as e:
                 print(e)
             time.sleep(600)  # 10 minutes cooldown due to reddit's ratelimit.
